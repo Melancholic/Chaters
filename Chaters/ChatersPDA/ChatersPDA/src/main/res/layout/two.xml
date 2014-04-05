@@ -1,0 +1,75 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.anagorny.chaters.chaterspda.MainActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="0.45"
+            android:layout_margin="10dp">
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:id="@+id/Rooms"
+                android:choiceMode="singleChoice"
+                android:scrollingCache="false"
+                android:layout_weight="0.5" />
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:id="@+id/UsrInRoom"
+                android:choiceMode="singleChoice"
+                android:layout_weight="0.5" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="0.45"
+            android:layout_margin="10dp">
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:id="@+id/AllUsrs"
+                android:choiceMode="singleChoice"
+                android:layout_weight="10" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="10">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Создать комнату"
+                    android:id="@+id/crtRmsBut" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</FrameLayout>

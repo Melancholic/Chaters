@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_chaters" default="compile.module.chaters">
+  <dirname property="module.chaters.basedir" file="${ant.file.module_chaters}"/>
+  
+  <property name="module.jdk.home.chaters" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.chaters" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.chaters" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.chaters" value="${compiler.args}"/>
+  
+  <property name="chaters.output.dir" value="${module.chaters.basedir}/out/production/Chaters"/>
+  <property name="chaters.testoutput.dir" value="${module.chaters.basedir}/out/test/Chaters"/>
+  
+  <path id="chaters.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="chaters.module.production.classpath">
+    <path refid="${module.jdk.classpath.chaters}"/>
+  </path>
+  
+  <path id="chaters.runtime.production.module.classpath">
+    <pathelement location="${chaters.output.dir}"/>
+  </path>
+  
+  <path id="chaters.module.classpath">
+    <path refid="${module.jdk.classpath.chaters}"/>
+    <pathelement location="${chaters.output.dir}"/>
+  </path>
+  
+  <path id="chaters.runtime.module.classpath">
+    <pathelement location="${chaters.testoutput.dir}"/>
+    <pathelement location="${chaters.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.chaters">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.chaters">
+    <patternset refid="excluded.from.module.chaters"/>
+  </patternset>
+  
+  <path id="chaters.module.sourcepath">
+    <dirset dir="${module.chaters.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.chaters" depends="compile.module.chaters.production,compile.module.chaters.tests" description="Compile module Chaters"/>
+  
+  <target name="compile.module.chaters.production" depends="register.custom.compilers" description="Compile module Chaters; production classes">
+    <mkdir dir="${chaters.output.dir}"/>
+    <javac2 destdir="${chaters.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.chaters}/javac">
+      <compilerarg line="${compiler.args.chaters}"/>
+      <bootclasspath refid="chaters.module.bootclasspath"/>
+      <classpath refid="chaters.module.production.classpath"/>
+      <src refid="chaters.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.chaters"/>
+    </javac2>
+    
+    <copy todir="${chaters.output.dir}">
+      <fileset dir="${module.chaters.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.chaters.tests" depends="register.custom.compilers,compile.module.chaters.production" description="compile module Chaters; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.chaters" description="cleanup module">
+    <delete dir="${chaters.output.dir}"/>
+    <delete dir="${chaters.testoutput.dir}"/>
+  </target>
+</project>
